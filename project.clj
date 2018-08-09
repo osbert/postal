@@ -1,6 +1,6 @@
-(defproject com.draines/postal "2.0.2"
+(defproject org.clojars.osbert/postal "2.0.3"
   :description "JavaMail on Clojure"
-  :url "https://github.com/drewr/postal"
+  :url "https://github.com/osbert/postal"
   :license {:name "MIT"
             :url "http://en.wikipedia.org/wiki/MIT_License"
             :distribution :repo
