@@ -139,7 +139,14 @@
 
 (defn add-extra! [^javax.mail.Message jmsg msgrest]
   (doseq [[n v] msgrest]
-    (.addHeader jmsg (if (keyword? n) (name n) n) v))
+    (cond
+      (string? v)
+      (.addHeader jmsg (if (keyword? n) (name n) n) v)
+      (seq v)
+      (doseq [header-line v]
+        (.addHeader jmsg (if (keyword? n) (name n) n) header-line))
+      :else
+      (throw (ex-info "Header values must be either a string or sequence."))))
   jmsg)
 
 (defn add-body! [^javax.mail.Message jmsg body charset]
