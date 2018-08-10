@@ -86,10 +86,14 @@
        (format "<%s.%s@%s>" onlychars epoch host))))
 
 (defn pom-version []
-  (let [pom "META-INF/maven/com.draines/postal/pom.properties"
-        props (doto (Properties.)
-                (.load (-> pom io/resource io/input-stream)))]
-    (.getProperty props "version")))
+  (try
+    (let [pom "META-INF/maven/com.draines/postal/pom.properties"
+          props (doto (Properties.)
+                  (.load (-> pom io/resource io/input-stream)))]
+      (.getProperty props "version"))
+    (catch Exception ex
+      ;; Let's not throw just because we can't find out the version
+      "unknown")))
 
 (defn user-agent []
   (let [prop (Properties.)
